@@ -6,42 +6,43 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.util.ErrorLogger;
-import io.github.pseudoresonance.pixy2api.Pixy2;
-import io.github.pseudoresonance.pixy2api.links.SPILink;
+import io.github.pseudoresonance.pixy2api.*;
+import io.github.pseudoresonance.pixy2api.links.*;
+import io.github.pseudoresonance.pixy2api.Pixy2CCC.Block;
 
 public class Pixy extends SubsystemBase {
-  private Pixy2 m_camera;
-  private static ErrorLogger logger = new ErrorLogger();
+    private static Pixy2 m_camera;
+    // private static ErrorLogger logger = new ErrorLogger();
 
-  /** Creates a new Pixy. */
-  public Pixy() {
-  }
+    /** Creates a new Pixy. */
+    public Pixy() {
+    }
 
-  public void init() {
-    m_camera = Pixy2.createInstance(new SPILink()); // Creates a new Pixy2 camera using SPILink
+    public void initialize() {
+        m_camera = Pixy2.createInstance(new SPILink()); // Creates a new Pixy2 camera using SPILink
 
-    System.out.println(m_camera.getVersionInfo().toString());
+        // System.out.println(m_camera.getVersionInfo().toString());
 
-    m_camera.init(); // Initializes the camera and prepares to send/receive data
-  }
+        m_camera.init(); // Initializes the camera and prepares to send/receive data
+    }
 
-  public void setLED(int r, int g, int b) {
-    byte code = m_camera.setLamp((byte) 1, (byte) 1); // Turns the LEDs on
-    logger.logErrorIfExists(code);
-    code = m_camera.setLED(r, g, b);
-    logger.logErrorIfExists(code);
-  }
+    public void setLED(int r, int g, int b) {
+        byte code = m_camera.setLamp((byte) 1, (byte) 1); // Turns the LEDs on
+        // logger.logErrorIfExists(code);
+        code = m_camera.setLED(r, g, b);
+        // logger.logErrorIfExists(code);
+    }
 
-  public void disableLED() {
-    m_camera.setLamp((byte) 0, (byte) 0);
-  }
+    public void disableLED() {
+        m_camera.setLamp((byte) 0, (byte) 0);
+    }
 
-  public int updateBlockCache(byte signature, int blockLimit) {
-    return m_camera.getCCC().getBlocks(false, signature, blockLimit);
-  }
+    public int updateBlockCache(byte signature, int blockLimit) {
+        return m_camera.getCCC().getBlocks(false, signature, blockLimit);
+    }
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
+    @Override
+    public void periodic() {
+        // This method will be called once per scheduler run
+    }
 }
