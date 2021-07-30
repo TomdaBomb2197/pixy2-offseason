@@ -27,18 +27,39 @@ public class Pixy extends SubsystemBase {
     }
 
     public void setLED(int r, int g, int b) {
-        byte code = m_camera.setLamp((byte) 1, (byte) 1); // Turns the LEDs on
+        byte code = m_camera.setLamp(byte 1, byte 1); // Turns the LEDs on
         // logger.logErrorIfExists(code);
         code = m_camera.setLED(r, g, b);
         // logger.logErrorIfExists(code);
     }
 
     public void disableLED() {
-        m_camera.setLamp((byte) 0, (byte) 0);
+        m_camera.setLamp(byte 0, byte 0);
     }
 
     public int updateBlockCache(byte signature, int blockLimit) {
         return m_camera.getCCC().getBlocks(false, signature, blockLimit);
+    }
+
+    /*
+    returns the largest block being seen by the Pixy2
+    also i wrote this code when errors weren't showing up so there might be a lot of errors i cant tell while writing
+    also maybe should go in periodic, idk
+    */
+    
+    public Block getLargestBlock() {
+        if (updateBlockCache(byte 1, 1 ) > 0) {
+            
+            //Test this first! Comment out once working
+            System.out.println("Detecting Block!\n")
+
+            /* Test this when the print statement works (beta code, idk if this will work, especially with multiple blocks)
+            Block largestBlock = pixy.ccc.blocks[0];
+
+            return largestBlock
+            
+            */
+        }
     }
 
     @Override
