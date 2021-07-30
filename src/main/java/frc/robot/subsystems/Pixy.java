@@ -51,7 +51,7 @@ public class Pixy extends SubsystemBase {
         if (updateBlockCache(byte 1, 1 ) > 0) {
             
             //Test this first! Comment out once working
-            System.out.println("Detecting Block!\n")
+            System.out.println("Detecting Block!\n");
 
             /* Test this when the print statement works (beta code, idk if this will work, especially with multiple blocks)
             Block largestBlock = pixy.ccc.blocks[0];
